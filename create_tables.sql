@@ -29,7 +29,7 @@ CREATE TABLE `Sneakers` (
     `colorway` VARCHAR(20) DEFAULT NULL,
     `estimatedMarketValue` INT DEFAULT NULL,
     `gender` VARCHAR(10) DEFAULT NULL,
-    `image` VARCHAR(255), -- Modifier le type de données
+    `image` VARCHAR(255) DEFAULT NULL, -- Modifier le type de données
     `links` VARCHAR(255) DEFAULT NULL,
     `name` VARCHAR(20) NOT NULL,
     `releaseDate` VARCHAR(255) DEFAULT NULL, -- Modifier le type de données
