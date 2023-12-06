@@ -13,10 +13,29 @@ const connexion = mysql.createConnection({
     password: process.env.SQL_PASSWORD,
     database: process.env.SQL_DATABASE
 })
-
 connexion.connect()
 
+// Filter requests and allow CORS
+app.use((req, res, next) => {
+    console.log(req.method, req.url);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
+
 // Routes
+app.post('/api/login', (req, res) => {
+    const body = req.body;
+    if (typeof body.email===undefined && typeof body.password === undefined) {
+        res.status(401);
+        res.send("Invalid format error.");
+        return;
+    }
+    const mySqlRequest = "SELECT * FROM Users WHERE email = "+`"${body.email}" AND password = "${body.password}";`;
+    res.send(mySqlRequest);
+})
+
 app.get('/api/sneakers', (req, res) => {
     const sqlRequest = "SELECT * FROM Sneakers;";
     connexion.query(sqlRequest, (err, rows, fields) => {
