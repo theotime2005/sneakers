@@ -1,0 +1,2 @@
+GET http://54.37.12.181:1337/api/sneakers/3109
+Accept: application/json
