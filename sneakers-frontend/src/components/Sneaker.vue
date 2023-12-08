@@ -1,5 +1,6 @@
 <script>
 import { useRouter } from "vue-router";
+import {RouterLink} from "vue-router";
 
 export default {
   setup() {
@@ -17,7 +18,7 @@ export default {
         const request = await fetch(url_to_fetch);
         if (request.status === 200) {
           const response = await request.json();
-          this.informations = response.data.attributes;
+          this.informations = response.data;
         }
       } catch (error) {
         console.error(error);
@@ -31,12 +32,15 @@ export default {
 </script>
 
 <template>
-  <h1>{{ informations.name }}</h1>
-  <img :src="informations.image.small" alt="L'image originale des sneakers">
-  <ul>
-    <li>Gender: {{ informations.gender }}</li>
-    <li>Colorway: {{ informations.colorway }}</li>
-  </ul>
+  <RouterLink to="/">Retour à la liste</RouterLink>
+  <div class="container" v-if="Object.keys(informations).length>=1">
+    <h1>{{ informations.attributes.name }} par {{informations.attributes.brand}}</h1>
+    <img :src="informations.attributes.image.small" alt="L'image originale des sneakers">
+    <ul>
+      <li>Gender: {{ informations.attributes.gender }}</li>
+      <li>Colorway: {{ informations.attributes.colorway }}</li>
+    </ul>
+  </div>
 </template>
 
 <style scoped>

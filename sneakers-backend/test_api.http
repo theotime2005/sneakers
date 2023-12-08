@@ -1,0 +1,18 @@
+### Register
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "t.berthod@outlook.com",
+  "username": "Theo",
+  "password": "bonjouratous"
+}
+
+### Log
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "t.berthod@outlook.com",
+  "password": "bonjouratous"
+}

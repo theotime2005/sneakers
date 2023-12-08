@@ -1,4 +1,5 @@
 <script>
+import {RouterLink} from "vue-router";
 export default {
   data() {
     return {
@@ -9,22 +10,16 @@ export default {
     };
   },
   methods: {
-    showMore(id) {
-      this.$router.push('/sneaker/'+id)
-    },
     async load_sneakers(page = 1) {
       this.page=page;
       const url_to_fetch = `http://54.37.12.181:1337/api/sneakers?pagination[page]=${page}&pagination[pageSize]=${this.page_size}`;
-      console.log(url_to_fetch);
       try {
         const request = await fetch(url_to_fetch);
         if (request.status === 200) {
           const response = await request.json();
           if (response) {
-            console.log("result", response.data[0]);
             this.sneakerList = response.data;
             this.page_number = response.meta.pagination.pageCount;
-            console.log(this.sneakerList);
           }
         }
       } catch (error) {
@@ -48,7 +43,7 @@ export default {
       <div class="card" v-for="sneaker in sneakerList" :key="sneaker.id">
         <h2>{{ sneaker.attributes.name }}</h2>
         <img :src="sneaker.attributes.image.ssmall" alt="Une image des sneakers">
-        <a href="#" @click="showMore(sneaker.id)">Show more</a>
+        <router-link :to="'/sneaker/'+sneaker.id">Voir plus</router-link>
       </div>
       <hr>
       <h1>Pagination actuellement sur la page {{page}}</h1>

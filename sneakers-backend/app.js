@@ -1,20 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const mysql = require('mysql2');
-const router = require("./routes/api");
-
-app.use(express.json());
-
-// Connexion to the database
-const connexion = mysql.createConnection({
-    host: process.env.SQL_HOST,
-    user: process.env.SQL_USER,
-    port: process.env.SQL_PORT,
-    password: process.env.SQL_PASSWORD,
-    database: process.env.SQL_DATABASE
-})
-connexion.connect()
+const auth = require('./router/authentication');
 
 // Filter requests and allow CORS
 app.use((req, res, next) => {
@@ -25,7 +12,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api', router);
+app.use(express.json());
 
+// Authentication
+app.use('/api/auth', auth);
 // Export
 module.exports = app;

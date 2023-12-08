@@ -1,5 +1,13 @@
-<script setup>
+<script>
 import {RouterLink, RouterView} from "vue-router";
+
+export default {
+  data() {
+    return {
+      user_token: sessionStorage.getItem("user_token")
+    };
+  }
+}
 </script>
 
 <template>
@@ -7,8 +15,15 @@ import {RouterLink, RouterView} from "vue-router";
     <nav>
       <router-link to="/">Home</router-link>
     </nav>
+    <div v-if="user_token===null">
+      <router-link to="/auth">Connexion</router-link>
+    </div>
   </header>
   <router-view/>
+  <hr>
+  <footer>
+    <p>Conçu par Théotime Berthod</p>
+  </footer>
 </template>
 
 <style scoped>

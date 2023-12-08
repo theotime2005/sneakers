@@ -1,0 +1,47 @@
+<script>
+export default {
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    async test_login() {
+      try {
+        const request = await fetch("http://localhost:3000/auth/login", {
+          method: 'POST',
+          headers: {
+           'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "email": this.email,
+            "password": this.password
+          })
+        });
+        if (request.status===200) {
+          const response = await request.json();
+          console.log(response);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+}
+</script>
+
+<template>
+  <h1>Connexion</h1>
+  <form @submit.prevent="test_login">
+    <label for="email">Email*</label>
+    <input type="email" required id="email" v-model="email">
+    <label for="password">Mot de passe*</label>
+    <input type="password" required v-model="password">
+    <button type="submit">Se connecter</button>
+  </form>
+</template>
+
+<style scoped>
+
+</style>
