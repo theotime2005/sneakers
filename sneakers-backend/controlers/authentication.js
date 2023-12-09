@@ -1,7 +1,6 @@
 const crypt = require("bcrypt");
 const sql = require('../sql');
 const jwt = require('jsonwebtoken');
-const token_characters = "DSJfsjkfkFfsFKFDSKdsj";
 
 exports.register = async (req, res, send) => {
     console.log("Ajout en cours...");
@@ -15,10 +14,9 @@ exports.register = async (req, res, send) => {
             mySqlRequest+="1);";
             sql.query(mySqlRequest, (err, rows, fields) => {
                 if (err) {
-                    res.status(501).send("Failed to add user");
-                    console.error(err);
+                    return res.status(501).json({message: "Failed to add user", error: {err}});
                 } else {
-                    res.status(200).send("User added successfull");
+                    res.status(200).json({message: "User added successfull"});
                 }
             });
         } else {
@@ -42,11 +40,12 @@ exports.login = async (req, res, next) => {
             res.status(401).send("Unable to check data in the server");
         }
         if (rows) {
+            console.log(rows);
             const data = rows[0];
-            if (crypt.compare(req.body, data.password)) {
+            if (crypt.compare(req.body.password, data.password)) {
                 res.status(200).json({
                     id: data.id,
-                    token: jwt.sign({userr_idd: data.id}, token_characters, {expiresIn: '1h'}),
+                    token: jwt.sign({user_id: data.id}, process.env.TOKEN_CHARACTERS, {expiresIn: '1h'}),
                     username: req.body.username
                 })
             }

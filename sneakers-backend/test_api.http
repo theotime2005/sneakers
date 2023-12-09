@@ -16,3 +16,28 @@ Content-Type: application/json
   "email": "t.berthod@outlook.com",
   "password": "bonjouratous"
 }
+
+### Add a sneaker to the collection of the user with the id 1
+POST http://localhost:3000/api/collection
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3MDIxNTE2MjYsImV4cCI6MTcwMjE1NTIyNn0.Ya83pU1qvdxcTJ8wI2Tb7AM6Ju2EMMpTGcoWX-Rjxu4
+
+{
+  "sneaker_id": 3109
+}
+
+### Pass the sneaker in the wishList
+POST http://localhost:3000/api/wishlist
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3MDIxNTE2MjYsImV4cCI6MTcwMjE1NTIyNn0.Ya83pU1qvdxcTJ8wI2Tb7AM6Ju2EMMpTGcoWX-Rjxu4
+
+{
+  "sneaker_id": 3109
+}
+
+### GET a collection
+GET http://localhost:3000/api/collection/1
+
+### DELETE a sneaker of collection
+DELETE http://localhost:3000/api/collection/3109
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3MDIxNDc5NDksImV4cCI6MTcwMjE1MTU0OX0.Mr-SHsPw8JCWiv6Rw1IT6BtE4dp3l-H2nwUqZ7xOYAQ

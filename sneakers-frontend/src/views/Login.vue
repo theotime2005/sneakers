@@ -9,15 +9,16 @@ export default {
   methods: {
     async test_login() {
       try {
+        const requestBody = {
+          "email": this.email,
+          "password": this.password
+        } ;
         const request = await fetch("http://localhost:3000/auth/login", {
           method: 'POST',
           headers: {
            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            "email": this.email,
-            "password": this.password
-          })
+          body: JSON.stringify(requestBody)
         });
         if (request.status===200) {
           const response = await request.json();
