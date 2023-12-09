@@ -14,6 +14,7 @@ ls
 ```
 
 Normaly, you will be have this display:
+<img src="documentation_screen/screen_1.png">
 
 # Installation
 ## First, load the database
