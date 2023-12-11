@@ -1,11 +1,22 @@
 <script>
-import {RouterLink, RouterView} from "vue-router";
+import { RouterLink, RouterView } from "vue-router";
 
 export default {
   data() {
     return {
-      user_token: sessionStorage.getItem("user_token")
+      tokenKey: "user_token",
+      isAuthenticated: !!sessionStorage.getItem("user_token")
     };
+  },
+  methods: {
+    logout() {
+      // Clear the user_token from sessionStorage
+      sessionStorage.removeItem(this.tokenKey);
+      // Update the authentication store
+      this.$store.commit('setAuthentication', false);
+      // Navigate to the home route
+      this.$router.push('/');
+    }
   }
 }
 </script>
@@ -15,8 +26,11 @@ export default {
     <nav>
       <router-link to="/">Home</router-link>
     </nav>
-    <div v-if="user_token===null">
+    <div v-if="!$store.state.isAuthenticated">
       <router-link to="/auth">Connexion</router-link>
+    </div>
+    <div v-if="$store.state.isAuthenticated">
+      <button @click="logout">Déconnexion</button>
     </div>
   </header>
   <router-view/>
@@ -25,18 +39,3 @@ export default {
     <p>Conçu par Théotime Berthod</p>
   </footer>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>

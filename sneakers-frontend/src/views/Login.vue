@@ -3,7 +3,8 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      message: ""
     };
   },
   methods: {
@@ -22,7 +23,14 @@ export default {
         });
         if (request.status===200) {
           const response = await request.json();
-          console.log(response);
+          if (response.token) {
+            sessionStorage.setItem("user_token", response.token)
+            this.$store.commit('setAuthentication', true);
+            this.$router.push('/');
+          }
+          else {
+            this.message="Email ou mot de passe incorrecte"
+          }
         }
       } catch (error) {
         console.error(error);
@@ -39,6 +47,7 @@ export default {
     <input type="email" required id="email" v-model="email">
     <label for="password">Mot de passe*</label>
     <input type="password" required v-model="password">
+    <p class="bg-red-400">{{message}}</p>
     <button type="submit">Se connecter</button>
   </form>
 </template>

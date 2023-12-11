@@ -10,7 +10,7 @@ router.delete('/collection/:id', auth, api.deleteToCollection);
 
 // WishList
 router.use('/wishlist', auth);
-routerpost('/wishlist', api.addToWishList);
+router.post('/wishlist', api.addToWishList);
 router.get('/wishlist', api.displayWishList);
 router.delete('/wishlist/:id', api.deleteToWishList)
 

@@ -40,7 +40,6 @@ exports.login = async (req, res, next) => {
             res.status(401).send("Unable to check data in the server");
         }
         if (rows) {
-            console.log(rows);
             const data = rows[0];
             if (crypt.compare(req.body.password, data.password)) {
                 res.status(200).json({
