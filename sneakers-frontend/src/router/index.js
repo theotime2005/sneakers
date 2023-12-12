@@ -15,9 +15,19 @@ const router = createRouter({
             component: () => import("../components/Sneaker.vue")
         },
         {
-            path: '/auth',
+            path: '/auth/login',
             name: 'login',
             component: () => import("../views/Login.vue")
+        },
+        {
+            path: '/collection',
+            name: 'Collection',
+            component: () => import("../views/Collection.vue")
+        },
+        {
+            path: '/wishlist',
+            name: 'wishlist',
+            component: () => import("../views/WishList.vue")
         }
     ]
 })

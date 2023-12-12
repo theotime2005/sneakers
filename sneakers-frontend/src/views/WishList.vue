@@ -4,20 +4,20 @@ import {RouterLink} from "vue-router";
 export default {
   data() {
     return {
-      sneakersCollection: []
+      sneakerWishList: []
     };
   },
   methods: {
     async get_sneakers() {
       try {
-        const my_request = await fetch("http://localhost:3000/api/collection", {
+        const my_request = await fetch("http://localhost:3000/api/wishlist", {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${sessionStorage.getItem("user_token")}`
           }
         });
         if (my_request.status===403) {
-          this.sneakersCollection=[];
+          this.sneakerWishList=[];
           return;
         } else if (my_request.status===200) {
           const response = await my_request.json();
@@ -35,14 +35,14 @@ export default {
         const my_request = await fetch(basic_url+id);
         if (my_request.status===200) {
           const response = await my_request.json();
-          this.sneakersCollection.push(response.data);
+          this.sneakerWishList.push(response.data);
         }
       } catch (error) {
         console.error(error);
       }
     },
     async delete_sneaker(id) {
-      const my_request = await fetch("http://localhost:3000/api/collection/"+id, {
+      const my_request = await fetch("http://localhost:3000/api/wishlist/"+id, {
         method: 'DELETE',
         headers: {
           'Authorization': 'Bearer '+sessionStorage.getItem("user_token")
@@ -50,6 +50,25 @@ export default {
       });
       if (my_request.status===200) {
         this.get_sneakers();
+      }
+    },
+    async past_to_collection(id) {
+      const request_body = {
+        sneaker_id: id
+      }
+      try {
+        const my_request = await fetch("http://localhost:3000/api/collection", {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer '+sessionStorage.getItem("user_token")
+          },
+          body: JSON.stringify(request_body)
+        });
+        if (my_request.status===200) {
+          this.get_sneakers();
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
   },
@@ -60,15 +79,16 @@ export default {
 </script>
 
 <template>
-  <h1>Ma collection de sneakers</h1>
-  <p>Ici vous pouvez ressenser les sneakers que vous possédez déjà.</p>
+  <h1>Ma liste de souhaits de sneakers</h1>
+  <p>Ici vous pouvez ressenser les sneakers que vous souhaiteriez avoir.</p>
   <div class="container">
-    <ul v-if="sneakersCollection && sneakersCollection.length>0" v-for="sneaker in sneakersCollection" :key="sneaker.id">
+    <ul v-if="sneakerWishList && sneakerWishList.length>0" v-for="sneaker in sneakerWishList" :key="sneaker.id">
       <li><router-link :to="'/sneaker/'+sneaker.id">{{sneaker.attributes.name}}</router-link>
-        <button @click="delete_sneaker(sneaker.id)">Retirer de ma collection</button>
+        <button @click="delete_sneaker(sneaker.id)">Retirer de ma liste de souhait</button>
+        <button @click="past_to_collection(sneaker.id)">Basculer le sneaker dans ma collection</button>
       </li>
     </ul>
-    <p v-else>Aucun sneaker dans la collection!!!</p>
+    <p v-else>Aucun sneaker dans la liste de souhait!!!</p>
   </div>
 </template>
 

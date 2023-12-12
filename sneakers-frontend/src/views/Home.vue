@@ -1,22 +1,24 @@
 <script>
-import {RouterLink} from "vue-router";
+import { RouterLink } from "vue-router";
 export default {
   data() {
     return {
+      user_token: sessionStorage.getItem("user_token"),
       page: 1,
       page_size: 25,
       page_number: 0,
       sneakerList: [],
       searchBar: "",
+      inCollection: [],
+      inWishList: []
     };
   },
   methods: {
     async load_sneakers(page = 1) {
-      this.sneakerList=[];
-      if (typeof page==="number") {
+      this.sneakerList = [];
+      if (typeof page === "number") {
         this.page = page;
-      }
-      else {
+      } else {
         console.log("page", page);
       }
       const url_to_fetch = `http://54.37.12.181:1337/api/sneakers?pagination[page]=${page}&pagination[pageSize]=${this.page_size}`;
@@ -26,9 +28,10 @@ export default {
           const response = await request.json();
           const sneakers = response.data; // Access the 'data' property of the response
           if (sneakers) {
-            if (this.searchBar.length>0) {
-              sneakers.forEach(sneaker => { // Use 'forEach' instead of 'map'
-                if (sneaker.attributes.name === this.searchBar) { // Fix the comparison operator
+            if (this.searchBar.length > 0) {
+              sneakers.forEach(sneaker => {
+                // Use 'forEach' instead of 'map'
+                if (sneaker.attributes.name.toUpperCase() === this.searchBar.toUpperCase()) {
                   this.sneakerList.push(sneaker);
                 }
               });
@@ -36,12 +39,80 @@ export default {
               this.sneakerList = sneakers;
             }
             this.page_number = response.meta.pagination.pageCount;
+            if (sessionStorage.getItem("user_token")) {
+              this.get_collection();
+              this.get_wishList();
+            }
           }
         }
       } catch (error) {
         console.error(error);
       }
-    }
+    },
+    async get_collection() {
+      try {
+        const my_request = await fetch("http://localhost:3000/api/collection", {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem("user_token")
+          }
+        });
+        if (my_request.status === 200) {
+          const response = await my_request.json();
+          this.inCollection = response.data;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }, // end
+    async get_wishList() {
+      try {
+        const my_request = await fetch("http://localhost:3000/api/wishlist", {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem("user_token")
+          }
+        });
+        if (my_request.status === 200) {
+          const response = await my_request.json();
+          this.inWishList = response.data;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    check_is(id) {
+      for (let element of this.inCollection) {
+        if (element.sneaker_id === id) {
+          return "collection";
+        }
+      }
+      for (let element of this.inWishList) {
+        if (element.user_id === id) {
+          return "wishlist";
+        }
+      }
+      return false;
+    },
+    async add_to(id, where) {
+      const request_body = {
+        "sneaker_id": id
+      };
+      try {
+        const my_request = await fetch("http://localhost:3000/api/" + where, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem("user_token")
+          },
+          body: JSON.stringify(request_body)
+        });
+        if (my_request.status === 200) {
+          console.log("added");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   mounted() {
     this.load_sneakers();
@@ -65,14 +136,24 @@ export default {
         <h2>{{ sneaker.attributes.name }}</h2>
         <img :src="sneaker.attributes.image.ssmall" alt="Une image des sneakers">
         <router-link :to="'/sneaker/'+sneaker.id">Voir plus</router-link>
+        <div v-if="user_token">
+          <div v-if="!check_is(sneaker.id)">
+            <button @click="add_to(sneaker.id, 'wishlist')">Ajouter à ma liste de souhaits</button>
+            <button @click="add_to(sneaker.id, 'collection')">Ajouter à ma collection</button>
+          </div>
+          <div v-else-if="check_is(sneaker.id)==='wishlist'">
+            <button>Supprimer de ma liste de souhaits</button>
+            <button @click="add_to(sneaker.id, 'collection')">Ajouter à ma collection</button>
+          </div>
+        </div>
       </div>
-      <p v-if="sneakerList && sneakerList.length===0">Aucun résultat</p>
+      <p v-if="sneakerList && sneakerList.length === 0">Aucun résultat</p>
       <hr>
       <h1>Pagination actuellement sur la page {{page}}</h1>
       <div class="page-navigation">
-        <a v-if="page>1" href="#" @click="load_sneakers(page-1)">Précédent ←</a>
-        <a v-for="pageNumber in Math.min(page_number, page+3)" :key="pageNumber" href="#" @click="load_sneakers(pageNumber)">{{ pageNumber }}</a>
-        <a v-if="page<page_number" href="#" @click="load_sneakers(page+1)">Suivant →</a>
+        <a v-if="page > 1" href="#" @click="load_sneakers(page - 1)">Précédent ←</a>
+        <a v-for="pageNumber in Math.min(page_number, page + 3)" :key="pageNumber" href="#" @click="load_sneakers(pageNumber)">{{ pageNumber }}</a>
+        <a v-if="page < page_number" href="#" @click="load_sneakers(page + 1)">Suivant →</a>
       </div>
     </div>
 

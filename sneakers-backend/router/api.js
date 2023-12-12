@@ -4,9 +4,10 @@ const auth = require('../midlewhere/authentication');
 const api = require('../controlers/api');
 
 // Collection
-router.post('/collection', auth, api.addToCollection);
-router.get('/collection/:id', api.displayCollection);
-router.delete('/collection/:id', auth, api.deleteToCollection);
+router.use('/collection', auth);
+router.post('/collection', api.addToCollection);
+router.get('/collection', api.displayCollection);
+router.delete('/collection/:id', api.deleteToCollection);
 
 // WishList
 router.use('/wishlist', auth);

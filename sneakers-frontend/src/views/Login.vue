@@ -25,7 +25,6 @@ export default {
           const response = await request.json();
           if (response.token) {
             sessionStorage.setItem("user_token", response.token)
-            this.$store.commit('setAuthentication', true);
             this.$router.push('/');
           }
           else {
