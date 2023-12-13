@@ -166,7 +166,7 @@ export default {
             <button @click="delete_to(sneaker.id, 'wishlist')">Supprimer de ma liste de souhaits</button>
             <button @click="add_to(sneaker.id, 'collection')">Ajouter à ma collection</button>
           </div>
-          <div v-else-if="check_is(sneaker.id)==='collection">
+          <div v-else-if="check_is(sneaker.id)==='collection'">
             <button @click="delete_to(sneaker.id, 'collection')">Supprimer de ma collection</button>
           </div>
         </div>

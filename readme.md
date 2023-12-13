@@ -18,7 +18,8 @@ Normaly, you will be have this display:
 <img src="documentation_screen/screen_1.png">
 
 # Installation
-## First, load the database
+## The server
+### First, load the database
 You must to use a SGDB to manage your users, collections and wish lists. Two sql files are ready to help you. This sql files was created with MySQL.
 1.  If you can using phpMyAdmin, use the import function to load the file:<sneakers-backend/sql/create_tables.sql> and <sneakers-backend/sql/insert_roles.sql> to load the differents tables and necessaries relations.
 2. If you don't have it, report to the documentation of your SGDB to load file. You can copy and past the folowing code on your sql console:
@@ -77,13 +78,13 @@ INSERT INTO Roles (name) VALUES ("standard");
 INSERT INTO Roles (name) VALUES ("admin");
 ```
 
-## Start your sql server
+### Start your sql server
 Start your sql server and check that you have:
 -   The host,
 - The port,
 - The password,
 
-## Prepare your backend server
+### Prepare your backend server
 in the sneakers-backend folder, create a file ".env",  past and complete the folowing code:
 ```plaintext
 SQL_HOST=""
@@ -95,20 +96,43 @@ TOKEN_CHARACTERS = ""
 ```
 Warning, the port must be an int, and "TOKEN_CHARACTERS" represent the string to hash passwords. You can make a long string in this last variable.
 
-## Start the express server
+### Start the express server
 In your terminal, goto sneakers-backend, and run this code:
 ```bash
 npm install
-
 ```
+<img src="documentation_screen/screen_2.png">
 After the downloading, you can start the server with the folowing methods:
 -  Developpement, to using nodemon and test the server
 ```bash
 npm run dev
 ```
+<img src="documentation_screen/screen_3.png">
 -  In normal mode, to using servor just with node
 ```bash
 npm start
 ```
-
+<img src="documentation_screen/screen_4.png">
 The port number of your server will be display.
+
+
+## Front
+### Dependencies installation
+Run the folowing code to install the dependencies:
+```bash
+npm install
+```
+<img src="documentation_screen/screen_5.png">
+
+### Start options
+To develop, you can use:
+```bash
+npm run dev
+```
+<img src="documentation_screen/screen_6.png">
+
+You can press 'o' and return to open the homepage.
+To build the app, run:
+```bash
+npm run build
+```
