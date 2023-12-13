@@ -31,7 +31,7 @@ export default {
           if (sneakers) {
             if (this.searchBar.length > 0) {
               sneakers.forEach(sneaker => {
-                if (sneaker.attributes.name.toUpperCase() === this.searchBar.toUpperCase()) {
+                if (sneaker.attributes.name.toUpperCase().includes(this.searchBar.toUpperCase())) {
                   this.sneakerList.push(sneaker);
                 }
               });
