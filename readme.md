@@ -134,3 +134,5 @@ npm run build
 ```
 <img src="documentation_screen/screen_7.png" alt="A screen with building informations and success compilation.">
 After building, you can use the build version in the "dist" folder.
+
+Revision date: 13/11/2023
