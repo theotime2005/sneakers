@@ -48,3 +48,70 @@ export default {
     <p>Conçu par Théotime Berthod</p>
   </footer>
 </template>
+
+<style scoped>
+/* Add your custom styles here */
+
+header {
+  /* Define styles for the header */
+  background-color: #343a40; /* Bootstrap's dark background color */
+  color: #fff; /* White text color */
+  padding: 10px;
+}
+
+nav {
+  /* Define styles for the navigation bar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+router-link {
+  /* Define styles for router links in the navigation bar */
+  color: #fff; /* White text color */
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+menu {
+  /* Define styles for the menu in the navigation bar */
+  display: flex;
+}
+
+p {
+  /* Define styles for paragraphs */
+  margin: 0;
+  padding-right: 10px;
+}
+
+button {
+  /* Define styles for buttons in the navigation bar */
+  padding: 5px 10px;
+  background-color: #dc3545; /* Bootstrap's red color for danger */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  /* Define styles for button on hover */
+  background-color: #c82333; /* Darker shade of red on hover */
+}
+
+hr {
+  /* Define styles for horizontal rule */
+  margin-top: 20px;
+}
+
+footer {
+  /* Define styles for the footer */
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #343a40; /* Bootstrap's dark background color */
+  color: #fff; /* White text color */
+}
+
+/* Add any additional styles as needed */
+</style>

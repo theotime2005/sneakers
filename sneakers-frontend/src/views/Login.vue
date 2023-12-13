@@ -56,5 +56,61 @@ export default {
 </template>
 
 <style scoped>
+/* Add your custom styles here */
 
+h1 {
+  /* Define styles for heading 1 */
+  color: #333;
+}
+
+form {
+  /* Define styles for the form */
+  margin-top: 20px;
+}
+
+label {
+  /* Define styles for labels */
+  display: block;
+  margin-top: 10px;
+  color: #555;
+}
+
+input {
+  /* Define styles for text inputs */
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+p {
+  /* Define styles for paragraphs */
+  color: #dc3545; /* Bootstrap's red color for danger */
+  margin-top: 10px;
+}
+
+button {
+  /* Define styles for buttons */
+  padding: 10px;
+  background-color: #007bff; /* Bootstrap's blue color for primary */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  /* Define styles for button on hover */
+  background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+hr {
+  /* Define styles for horizontal rule */
+  margin-top: 20px;
+}
+
+/* Add any additional styles as needed */
 </style>

@@ -74,5 +74,58 @@ export default {
 </template>
 
 <style scoped>
+/* Add your custom styles here */
 
+h1 {
+  /* Define styles for heading 1 */
+  color: #333;
+}
+
+p {
+  /* Define styles for paragraphs */
+  color: #555;
+}
+
+.container {
+  /* Define styles for the container */
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+ul {
+  /* Define styles for unordered lists */
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  /* Define styles for list items */
+  margin-bottom: 10px;
+}
+
+router-link {
+  /* Define styles for router links */
+  color: #007bff; /* Blue color for links */
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+button {
+  /* Define styles for buttons */
+  padding: 5px 10px;
+  background-color: #dc3545; /* Bootstrap's red color for danger */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  /* Define styles for button on hover */
+  background-color: #c82333; /* Darker shade of red on hover */
+}
+
+/* Add any additional styles as needed */
 </style>

@@ -50,5 +50,55 @@ export default {
 </template>
 
 <style scoped>
+/* Add your custom styles here */
 
+.container {
+  /* Define styles for the container */
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+h1 {
+  /* Define styles for heading 1 */
+  color: #333;
+}
+
+h2 {
+  /* Define styles for heading 2 */
+  color: #555;
+  margin-top: 10px;
+}
+
+ul {
+  /* Define styles for unordered lists */
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  /* Define styles for list items */
+  margin-bottom: 8px;
+}
+
+a {
+  /* Define styles for links */
+  color: #007bff; /* Blue color for links */
+  text-decoration: none;
+}
+
+a:hover {
+  /* Define styles for links on hover */
+  text-decoration: underline;
+}
+
+img {
+  /* Define styles for images */
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+/* Add any additional styles as needed */
 </style>
