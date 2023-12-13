@@ -1,3 +1,4 @@
+# Sneakers
 This project has been realized during my first year to Epitech Digital School.
 
 # Finality
@@ -98,6 +99,7 @@ Warning, the port must be an int, and "TOKEN_CHARACTERS" represent the string to
 In your terminal, goto sneakers-backend, and run this code:
 ```bash
 npm install
+
 ```
 After the downloading, you can start the server with the folowing methods:
 -  Developpement, to using nodemon and test the server

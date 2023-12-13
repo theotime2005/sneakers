@@ -36,9 +36,15 @@ export default {
   <div class="container" v-if="Object.keys(informations).length>=1">
     <h1>{{ informations.attributes.name }} par {{informations.attributes.brand}}</h1>
     <img :src="informations.attributes.image.small" alt="L'image originale des sneakers">
+    <h2>Information générales</h2>
     <ul>
-      <li>Gender: {{ informations.attributes.gender }}</li>
-      <li>Colorway: {{ informations.attributes.colorway }}</li>
+      <li>Fabriquant: {{informations.attributes.brand}}</li>
+      <li>Genre: {{informations.attributes.gender}}</li>
+      <li>Prix estimé: {{informations.attributes.estimatedMarketValue}}</li>
+    </ul>
+    <h2>Liens</h2>
+    <ul>
+      <li v-for="(value, key) in informations.attributes.links"><a :href="value" target="_blank">{{key}}</a> </li>
     </ul>
   </div>
 </template>

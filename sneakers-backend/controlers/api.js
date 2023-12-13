@@ -25,7 +25,7 @@ exports.displayCollection = (req, res, next) => {
             res.status(501).json({message: "Internal server error", details: {error: err}});
         }
         if (rows.length===0) {
-            return res.status(403).json({message: "Empty collection"});
+            return res.status(200).json({message: "Empty collection", total: rows.length});
         }
         res.status(200).json({data: rows, total: rows.length});
     })
@@ -44,6 +44,7 @@ exports.deleteToCollection = (req, res, next) => {
 // wishList
 exports.addToWishList = (req, res, next) => {
     let mySqlRequest =  "INSERT INTO WishList VALUES ("+req.auth.user_id+", "+req.body.sneaker_id+");";
+    console.log(mySqlRequest);
     sql.query(mySqlRequest, (err, rows, fields) => {
         if (err) {
             return res.status(501).json({message: "Internal servor error", details: {error: err}})
@@ -53,13 +54,13 @@ exports.addToWishList = (req, res, next) => {
 }
 
 exports.displayWishList = async (req, res, next) => {
-    const mySqlRequest = `SELECT * FROM WishList WHERE user_id = ${req.params.id};`;
+    const mySqlRequest = `SELECT * FROM WishList WHERE user_id = ${req.auth.user_id};`;
     sql.query(mySqlRequest, (err, rows, fields) => {
         if (err) {
             res.status(501).json({message: "Internal server error", details: {error: err}});
         }
         if (rows.length===0) {
-            return res.status(403).json({message: "Wish list is empty", total: rows.length});
+            return res.status(200).json({message: "Wish list is empty", total: rows.length});
         }
         res.status(200).json({data: rows, total: rows.length});
     })

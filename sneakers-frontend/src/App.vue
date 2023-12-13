@@ -26,7 +26,7 @@ export default {
 <template>
   <header>
     <nav>
-      <router-link to="/">Home</router-link>
+      <router-link to="/">Accueil</router-link>
       <menu v-if="user_token">
         <router-link to="/wishlist">Ma liste de souhaits</router-link>
         <router-link to="/collection">Ma collection</router-link>

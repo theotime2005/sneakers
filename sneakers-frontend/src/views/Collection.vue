@@ -9,6 +9,7 @@ export default {
   },
   methods: {
     async get_sneakers() {
+      this.sneakersCollection=[];
       try {
         const my_request = await fetch("http://localhost:3000/api/collection", {
           method: 'GET',
@@ -16,11 +17,11 @@ export default {
             'Authorization': `Bearer ${sessionStorage.getItem("user_token")}`
           }
         });
-        if (my_request.status===403) {
-          this.sneakersCollection=[];
-          return;
-        } else if (my_request.status===200) {
+        if (my_request.status===200) {
           const response = await my_request.json();
+          if (response.total===200) {
+            return;
+          }
           for (let element of response.data) {
             this.fetch_sneaker(element.sneaker_id);
           }

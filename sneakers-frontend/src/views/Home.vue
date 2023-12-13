@@ -1,5 +1,6 @@
 <script>
-import { RouterLink } from "vue-router";
+import {RouterLink} from "vue-router";
+
 export default {
   data() {
     return {
@@ -30,7 +31,6 @@ export default {
           if (sneakers) {
             if (this.searchBar.length > 0) {
               sneakers.forEach(sneaker => {
-                // Use 'forEach' instead of 'map'
                 if (sneaker.attributes.name.toUpperCase() === this.searchBar.toUpperCase()) {
                   this.sneakerList.push(sneaker);
                 }
@@ -59,7 +59,9 @@ export default {
         });
         if (my_request.status === 200) {
           const response = await my_request.json();
-          this.inCollection = response.data;
+          if (response.total>0) {
+            this.inCollection = response.data;
+          }
         }
       } catch (error) {
         console.error(error);
@@ -75,7 +77,9 @@ export default {
         });
         if (my_request.status === 200) {
           const response = await my_request.json();
-          this.inWishList = response.data;
+          if (response.total>0) {
+            this.inWishList = response.data;
+          }
         }
       } catch (error) {
         console.error(error);
@@ -88,7 +92,7 @@ export default {
         }
       }
       for (let element of this.inWishList) {
-        if (element.user_id === id) {
+        if (element.sneaker_id === id) {
           return "wishlist";
         }
       }
@@ -102,17 +106,34 @@ export default {
         const my_request = await fetch("http://localhost:3000/api/" + where, {
           method: 'POST',
           headers: {
+            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + sessionStorage.getItem("user_token")
           },
           body: JSON.stringify(request_body)
         });
         if (my_request.status === 200) {
-          console.log("added");
+          this.load_sneakers();
         }
       } catch (error) {
         console.error(error);
       }
     },
+    async delete_to(id, where) {
+      try {
+        const my_request = await fetch("http://localhost:3000/api/"+where, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Bearer '+sessionStorage.getItem("user_token")
+          }
+        });
+        if (my_request.status===200) {
+          this.load_sneakers();
+        }
+      }
+      catch (error) {
+        console.error(error);
+      }
+    }
   },
   mounted() {
     this.load_sneakers();
@@ -142,8 +163,11 @@ export default {
             <button @click="add_to(sneaker.id, 'collection')">Ajouter à ma collection</button>
           </div>
           <div v-else-if="check_is(sneaker.id)==='wishlist'">
-            <button>Supprimer de ma liste de souhaits</button>
+            <button @click="delete_to(sneaker.id, 'wishlist')">Supprimer de ma liste de souhaits</button>
             <button @click="add_to(sneaker.id, 'collection')">Ajouter à ma collection</button>
+          </div>
+          <div v-else-if="check_is(sneaker.id)==='collection">
+            <button @click="delete_to(sneaker.id, 'collection')">Supprimer de ma collection</button>
           </div>
         </div>
       </div>
