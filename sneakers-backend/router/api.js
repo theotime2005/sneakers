@@ -15,4 +15,10 @@ router.post('/wishlist', api.addToWishList);
 router.get('/wishlist', api.displayWishList);
 router.delete('/wishlist/:id', api.deleteToWishList)
 
+router.use('/profil', auth);
+router.get('/profil', api.getProfilInformation);
+router.put('/profil', api.updateProfil);
+router.delete('/profil', api.deleteProfil);
+router.put('/profil/password', api.changePassword);
+
 module.exports = router;

@@ -50,55 +50,59 @@ export default {
 </template>
 
 <style scoped>
-/* Add your custom styles here */
+/* Styles généraux */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa; /* Couleur de fond par défaut */
+  color: #333; /* Couleur de texte par défaut */
+}
 
+/* Styles du lien de retour */
+RouterLink {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #007bff; /* Couleur du lien de retour */
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease; /* Animation de transition de couleur */
+}
+
+RouterLink:hover {
+  color: #0056b3; /* Couleur au survol */
+
+  /* Vous pouvez également ajouter une transition ici pour une animation plus fluide */
+}
+
+/* Styles du conteneur */
 .container {
-  /* Define styles for the container */
   margin: 20px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
+/* Styles des titres */
 h1 {
-  /* Define styles for heading 1 */
   color: #333;
+  font-size: 24px; /* Taille de police légèrement plus grande */
 }
 
 h2 {
-  /* Define styles for heading 2 */
   color: #555;
   margin-top: 10px;
+  font-size: 20px; /* Taille de police légèrement plus grande */
 }
 
-ul {
-  /* Define styles for unordered lists */
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  /* Define styles for list items */
-  margin-bottom: 8px;
-}
-
-a {
-  /* Define styles for links */
-  color: #007bff; /* Blue color for links */
+/* Styles des liens */
+ul li a {
+  color: #007bff; /* Couleur des liens */
   text-decoration: none;
 }
 
-a:hover {
-  /* Define styles for links on hover */
+ul li a:hover {
   text-decoration: underline;
 }
 
-img {
-  /* Define styles for images */
-  max-width: 100%;
-  height: auto;
-  margin-top: 10px;
-}
-
-/* Add any additional styles as needed */
+/* Ajoutez d'autres styles au besoin */
 </style>

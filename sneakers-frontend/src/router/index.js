@@ -30,6 +30,11 @@ const router = createRouter({
             component: () => import("../views/Collection.vue")
         },
         {
+            path: '/profil',
+            name: 'Profil',
+            component: () => import("../views/Profil.vue")
+        },
+        {
             path: '/wishlist',
             name: 'wishlist',
             component: () => import("../views/WishList.vue")

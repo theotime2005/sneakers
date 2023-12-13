@@ -12,14 +12,14 @@ export default {
     async get_sneakers() {
       this.sneakerWishList=[];
       try {
-        const my_request = await fetch("http://localhost:3000/api/wishlist", {
+        const request = await fetch("http://localhost:3000/api/wishlist", {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${sessionStorage.getItem("user_token")}`
           }
         });
-        if (my_request.status===200) {
-          const response = await my_request.json();
+        if (request.status===200) {
+          const response = await request.json();
           if (response.total===0) {
 
             return;
@@ -35,9 +35,9 @@ export default {
     async fetch_sneaker(id) {
       const basic_url = "http://54.37.12.181:1337/api/sneakers/";
       try {
-        const my_request = await fetch(basic_url+id);
-        if (my_request.status===200) {
-          const response = await my_request.json();
+        const request = await fetch(basic_url+id);
+        if (request.status===200) {
+          const response = await request.json();
           this.sneakerWishList.push(response.data);
         }
       } catch (error) {
@@ -45,13 +45,13 @@ export default {
       }
     },
     async delete_sneaker(id) {
-      const my_request = await fetch("http://localhost:3000/api/wishlist/"+id, {
+      const request = await fetch("http://localhost:3000/api/wishlist/"+id, {
         method: 'DELETE',
         headers: {
           'Authorization': 'Bearer '+sessionStorage.getItem("user_token")
         }
       });
-      if (my_request.status===200) {
+      if (request.status===200) {
         this.get_sneakers();
       }
     },
@@ -60,7 +60,7 @@ export default {
         sneaker_id: id
       }
       try {
-        const my_request = await fetch("http://localhost:3000/api/collection", {
+        const request = await fetch("http://localhost:3000/api/collection", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export default {
           },
           body: JSON.stringify(request_body)
         });
-        if (my_request.status===200) {
+        if (request.status===200) {
           this.get_sneakers();
         }
       } catch (error) {
@@ -109,17 +109,16 @@ export default {
 </template>
 
 <style scoped>
-/* Add your custom styles here */
-
-h1 {
-  /* Define styles for heading 1 */
-  color: #333;
+/* Styles généraux */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa; /* Couleur de fond par défaut */
 }
 
+/* Styles du lien de messagerie */
 a {
-  /* Define styles for mailto link */
   padding: 10px;
-  background-color: #007bff; /* Bootstrap's blue color for primary */
+  background-color: #007bff;
   color: #fff;
   text-decoration: none;
   display: inline-block;
@@ -129,18 +128,15 @@ a {
 }
 
 a:hover {
-  /* Define styles for mailto link on hover */
-  background-color: #0056b3; /* Darker shade of blue on hover */
+  background-color: #0056b3;
 }
 
-p {
-  /* Define styles for paragraphs */
-  color: #555;
-  margin-top: 10px;
+/* Styles de la liste de souhaits */
+h1 {
+  color: #333;
 }
 
 .container {
-  /* Define styles for the container */
   margin-top: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -148,46 +144,39 @@ p {
 }
 
 ul {
-  /* Define styles for unordered lists */
   list-style: none;
   padding: 0;
 }
 
 li {
-  /* Define styles for list items */
   margin-bottom: 20px;
 }
 
 router-link {
-  /* Define styles for router links in list items */
-  color: #007bff; /* Blue color for links */
+  color: #007bff;
   text-decoration: none;
   margin-right: 10px;
 }
 
 img {
-  /* Define styles for images in list items */
   max-width: 100%;
   height: auto;
   margin-top: 10px;
 }
 
+/* Styles des boutons */
 button {
-  /* Define styles for buttons in list items */
   padding: 8px;
   margin-top: 10px;
   margin-right: 10px;
-  background-color: #dc3545; /* Bootstrap's red color for danger */
-  color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 button:hover {
-  /* Define styles for button on hover */
-  background-color: #c82333; /* Darker shade of red on hover */
+  filter: brightness(90%); /* Légère réduction de la luminosité au survol */
 }
 
-/* Add any additional styles as needed */
+/* Ajoutez d'autres styles au besoin */
 </style>

@@ -9,11 +9,16 @@ export default {
   },
   methods: {
     async test_login() {
+      this.message="";
+      if (!this.email || !this.password) {
+        this.message="Remplissez tous les champs!";
+        return;
+      }
       try {
         const requestBody = {
           "email": this.email,
           "password": this.password
-        } ;
+        }
         const request = await fetch("http://localhost:3000/auth/login", {
           method: 'POST',
           headers: {
@@ -28,7 +33,7 @@ export default {
             sessionStorage.setItem("user_name", response.userName);
             this.$router.push('/');
           }
-          else {
+          else if (request.status===403) {
             this.message="Email ou mot de passe incorrecte"
           }
         }
@@ -47,7 +52,7 @@ export default {
     <input type="email" required id="email" v-model="email">
     <label for="password">Mot de passe*</label>
     <input type="password" required v-model="password">
-    <p class="bg-red-400">{{message}}</p>
+    <p class="bg-red-400" v-if="message.length>0">{{message}}</p>
     <button type="submit">Se connecter</button>
     <hr>
     <p>Pas de compte?</p>
@@ -61,11 +66,15 @@ export default {
 h1 {
   /* Define styles for heading 1 */
   color: #333;
+  text-align: center; /* Center align the heading */
 }
 
 form {
   /* Define styles for the form */
   margin-top: 20px;
+  max-width: 400px; /* Limit the form width for better readability */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 label {
@@ -78,7 +87,7 @@ label {
 input {
   /* Define styles for text inputs */
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   margin-top: 5px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -94,12 +103,14 @@ p {
 
 button {
   /* Define styles for buttons */
+  width: 100%;
   padding: 10px;
   background-color: #007bff; /* Bootstrap's blue color for primary */
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s; /* Add a smooth transition effect */
 }
 
 button:hover {
@@ -110,6 +121,11 @@ button:hover {
 hr {
   /* Define styles for horizontal rule */
   margin-top: 20px;
+}
+
+button.create-account-btn {
+  /* Specific styles for the "Create Account" button */
+  background-color: #28a745; /* Bootstrap's green color for success */
 }
 
 /* Add any additional styles as needed */

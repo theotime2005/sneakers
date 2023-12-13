@@ -16,14 +16,14 @@ export default {
         password: this.password
       }
       try {
-        const my_request = await fetch("http://localhost:3000/auth/register", {
+        const request = await fetch("http://localhost:3000/auth/register", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(request_body)
         });
-        if (my_request.status===200) {
+        if (request.status===200) {
           this.$router.push('/auth/login');
         }
       } catch (error) {
@@ -55,16 +55,21 @@ export default {
 h1 {
   /* Define styles for heading 1 */
   color: #333;
+  text-align: center; /* Center align the heading */
 }
 
 p {
   /* Define styles for paragraphs */
   color: #555;
   margin-top: 10px;
+  text-align: center; /* Center align the paragraph */
 }
 
 form {
   /* Define styles for the form */
+  max-width: 400px; /* Limit the form width for better readability */
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 20px;
 }
 
@@ -78,7 +83,7 @@ label {
 input {
   /* Define styles for text inputs */
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   margin-top: 5px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -86,25 +91,29 @@ input {
   box-sizing: border-box;
 }
 
-p {
-  /* Define styles for paragraphs */
-  color: #007bff; /* Bootstrap's blue color for primary */
+p.success {
+  /* Define styles for success paragraphs */
+  color: #28a745; /* Bootstrap's green color for success */
   margin-top: 10px;
+  text-align: center; /* Center align the success message */
 }
 
 button {
   /* Define styles for buttons */
+  width: 100%;
   padding: 10px;
-  background-color: #28a745; /* Bootstrap's green color for success */
+  margin-top: 10px;
+  background-color: #007bff; /* Bootstrap's blue color for primary */
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s; /* Add a smooth transition effect */
 }
 
 button:hover {
   /* Define styles for button on hover */
-  background-color: #218838; /* Darker shade of green on hover */
+  background-color: #0056b3; /* Darker shade of blue on hover */
 }
 
 /* Add any additional styles as needed */

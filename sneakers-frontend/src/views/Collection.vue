@@ -11,14 +11,14 @@ export default {
     async get_sneakers() {
       this.sneakersCollection=[];
       try {
-        const my_request = await fetch("http://localhost:3000/api/collection", {
+        const request = await fetch("http://localhost:3000/api/collection", {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${sessionStorage.getItem("user_token")}`
           }
         });
-        if (my_request.status===200) {
-          const response = await my_request.json();
+        if (request.status===200) {
+          const response = await request.json();
           if (response.total===200) {
             return;
           }
@@ -33,9 +33,9 @@ export default {
     async fetch_sneaker(id) {
       const basic_url = "http://54.37.12.181:1337/api/sneakers/";
       try {
-        const my_request = await fetch(basic_url+id);
-        if (my_request.status===200) {
-          const response = await my_request.json();
+        const request = await fetch(basic_url+id);
+        if (request.status===200) {
+          const response = await request.json();
           this.sneakersCollection.push(response.data);
         }
       } catch (error) {
@@ -43,13 +43,13 @@ export default {
       }
     },
     async delete_sneaker(id) {
-      const my_request = await fetch("http://localhost:3000/api/collection/"+id, {
+      const request = await fetch("http://localhost:3000/api/collection/"+id, {
         method: 'DELETE',
         headers: {
           'Authorization': 'Bearer '+sessionStorage.getItem("user_token")
         }
       });
-      if (my_request.status===200) {
+      if (request.status===200) {
         this.get_sneakers();
       }
     }
@@ -69,7 +69,7 @@ export default {
         <button @click="delete_sneaker(sneaker.id)">Retirer de ma collection</button>
       </li>
     </ul>
-    <p v-else>Aucun sneaker dans la collection!!!</p>
+    <p v-else class="no-sneakers-message">Aucun sneaker dans la collection!!!</p>
   </div>
 </template>
 
@@ -128,4 +128,11 @@ button:hover {
 }
 
 /* Add any additional styles as needed */
+
+/* Style for the message when there are no sneakers in the collection */
+.no-sneakers-message {
+  color: #999;
+  font-style: italic;
+  margin-top: 10px;
+}
 </style>

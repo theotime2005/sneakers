@@ -31,7 +31,7 @@ exports.login = async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
         res.status(400).send('Invalid json format error. Format: ' +
             '{"email": "string", "password": "string"}');
-        return
+        return;
     }
     const mySqlRequest = 'SELECT * FROM Users WHERE email = "'+req.body.email+'";';
     sql.query(mySqlRequest, async (err, rows, fields) => {
@@ -40,13 +40,16 @@ exports.login = async (req, res, next) => {
         }
         if (rows) {
             const data = rows[0];
-            if (crypt.compare(req.body.password, data.password)) {
+            const test_password = await crypt.compare(req.body.password, data.password);
+            if (test_password) {
                 res.status(200).json({
                     id: data.id,
                     userName: data.username,
                     token: jwt.sign({user_id: data.id}, process.env.TOKEN_CHARACTERS, {expiresIn: '1h'}),
                     username: req.body.username
                 })
+            } else {
+                return res.status(403).json({message: "Incorrect password"});
             }
         }
     })

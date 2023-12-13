@@ -51,14 +51,14 @@ export default {
     },
     async get_collection() {
       try {
-        const my_request = await fetch("http://localhost:3000/api/collection", {
+        const request = await fetch("http://localhost:3000/api/collection", {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + sessionStorage.getItem("user_token")
           }
         });
-        if (my_request.status === 200) {
-          const response = await my_request.json();
+        if (request.status === 200) {
+          const response = await request.json();
           if (response.total>0) {
             this.inCollection = response.data;
           }
@@ -69,14 +69,14 @@ export default {
     }, // end
     async get_wishList() {
       try {
-        const my_request = await fetch("http://localhost:3000/api/wishlist", {
+        const request = await fetch("http://localhost:3000/api/wishlist", {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + sessionStorage.getItem("user_token")
           }
         });
-        if (my_request.status === 200) {
-          const response = await my_request.json();
+        if (request.status === 200) {
+          const response = await request.json();
           if (response.total>0) {
             this.inWishList = response.data;
           }
@@ -103,7 +103,7 @@ export default {
         "sneaker_id": id
       };
       try {
-        const my_request = await fetch("http://localhost:3000/api/" + where, {
+        const request = await fetch("http://localhost:3000/api/" + where, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export default {
           },
           body: JSON.stringify(request_body)
         });
-        if (my_request.status === 200) {
+        if (request.status === 200) {
           this.load_sneakers();
         }
       } catch (error) {
@@ -120,13 +120,13 @@ export default {
     },
     async delete_to(id, where) {
       try {
-        const my_request = await fetch("http://localhost:3000/api/"+where+"/"+id, {
+        const request = await fetch("http://localhost:3000/api/"+where+"/"+id, {
           method: 'DELETE',
           headers: {
             'Authorization': 'Bearer '+sessionStorage.getItem("user_token")
           }
         });
-        if (my_request.status===200) {
+        if (request.status===200) {
           this.load_sneakers();
         }
       }
@@ -189,86 +189,69 @@ export default {
 <style scoped>
 /* Add your custom styles here */
 
-h1 {
-  /* Define styles for heading 1 */
-  color: #333;
+h1, h2 {
+  color: #333; /* Define styles for headings */
 }
 
 p {
-  /* Define styles for paragraphs */
-  color: #555;
+  color: #555; /* Define styles for paragraphs */
 }
 
 .searchBar {
-  /* Define styles for the search bar */
-  margin: 20px 0;
-  display: flex
-; /* continuation of the previous styles */
-  input {
-    /* Define styles for the search input */
-    flex-grow: 1;
-    margin-right: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+  margin: 20px 0; /* Define styles for the search bar */
+  display: flex;
+}
 
-  button {
-    /* Define styles for the search button */
-    padding: 5px 10px;
-    background-color: #007bff; /* Bootstrap's blue color for primary */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.searchBar input {
+  flex-grow: 1; /* Define styles for the search input */
+  margin-right: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-  button:hover {
-    /* Define styles for button on hover */
-    background-color: #0056b3; /* Darker shade of blue on hover */
-  }
+.searchBar button {
+  padding: 5px 10px; /* Define styles for the search button */
+  background-color: #007bff; /* Bootstrap's blue color for primary */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.searchBar button:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
 }
 
 .container {
-  /* Define styles for the container */
-  margin: 20px;
+  margin: 20px; /* Define styles for the container */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
 }
 
 .card {
-  /* Define styles for the card */
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Define styles for the card */
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
 }
 
-h2 {
-  /* Define styles for heading 2 in cards */
-  color: #333;
-}
-
 img {
-  /* Define styles for images in cards */
-  max-width: 100%;
+  max-width: 100%; /* Define styles for images in cards */
   height: auto;
   margin-top: 10px;
 }
 
 router-link {
-  /* Define styles for router links in cards /
-  color: #007bff; / Blue color for links */
-  text-decoration: none;
+  color: #007bff; /* Blue color for links */
+  text-decoration: none; /* Define styles for router links in cards */
   margin-right: 10px;
 }
 
 button {
-  /* Define styles for buttons in cards /
-  padding: 5px 10px;
+  padding: 5px 10px; /* Define styles for buttons in cards */
   margin-top: 10px;
-  background-color: #28a745; / Bootstrap's green color for success */
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -276,21 +259,18 @@ button {
 }
 
 button:hover {
-  /* Define styles for button on hover /
-  background-color: #218838; / Darker shade of green on hover */
+  background-color: #28a745; /* Bootstrap's green color for success */
 }
 
 .page-navigation {
-  /* Define styles for page navigation */
-  margin-top: 20px;
+  margin-top: 20px; /* Define styles for page navigation */
   display: flex;
   justify-content: space-between;
 }
 
 a {
-  /* Define styles for pagination links /
-  padding: 5px 10px;
-  background-color: #007bff; / Blue color for links */
+  padding: 5px 10px; /* Define styles for pagination links */
+  background-color: #007bff; /* Blue color for links */
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -299,17 +279,22 @@ a {
 }
 
 a:hover {
-  /* Define styles for pagination links on hover /
-  background-color: #0056b3; / Darker shade of blue on hover */
+  background-color: #0056b3; /* Darker shade of blue on hover */
 }
 
 input[type="number"] {
-  /* Define styles for the number input */
-  padding: 5px;
+  padding: 5px; /* Define styles for the number input */
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
 }
 
 /* Add any additional styles as needed */
+
+.no-sneakers-message {
+  color: #999;
+  font-style: italic;
+  margin-top: 10px;
+}
+
 </style>

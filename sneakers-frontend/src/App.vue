@@ -1,10 +1,14 @@
 <script>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRouter } from "vue-router";
 import router from "./router/index.js";
 
 export default {
+  setup() {
+    const route = useRouter();
+  },
   data() {
     return {
+      path: this.$route.path,
       user_token: "",
       user_name: ""
     };
@@ -18,6 +22,7 @@ export default {
   },
   created() {
     router.afterEach(() => {
+      this.path=this.$route.path;
       this.user_token=sessionStorage.getItem("user_token");
       this.user_name=sessionStorage.getItem("user_name");
     })
@@ -39,6 +44,7 @@ export default {
     </div>
     <div v-if="user_token">
       <p>Bonjour {{user_name}}</p>
+      <button v-if="path!='/profil'" @click="$router.push('/profil')">Modifier mon profil</button>
       <button @click="logout">Déconnexion</button>
     </div>
   </header>
@@ -75,6 +81,11 @@ router-link {
 
 menu {
   /* Define styles for the menu in the navigation bar */
+  display: flex;
+}
+
+/* Hide the menu if the user is not logged in */
+menu[v-if="user_token"] {
   display: flex;
 }
 
