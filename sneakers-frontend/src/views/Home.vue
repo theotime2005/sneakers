@@ -120,7 +120,7 @@ export default {
     },
     async delete_to(id, where) {
       try {
-        const my_request = await fetch("http://localhost:3000/api/"+where, {
+        const my_request = await fetch("http://localhost:3000/api/"+where+"/"+id, {
           method: 'DELETE',
           headers: {
             'Authorization': 'Bearer '+sessionStorage.getItem("user_token")

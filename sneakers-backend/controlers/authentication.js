@@ -3,7 +3,6 @@ const sql = require('../sql');
 const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res, send) => {
-    console.log("Ajout en cours...");
     try {
         const password = await crypt.hash(req.body.password, 10);
         if (req.body.email.indexOf("@") > 0 && req.body.password.length >= 8 && req.body.username.length>0) {
@@ -44,6 +43,7 @@ exports.login = async (req, res, next) => {
             if (crypt.compare(req.body.password, data.password)) {
                 res.status(200).json({
                     id: data.id,
+                    userName: data.username,
                     token: jwt.sign({user_id: data.id}, process.env.TOKEN_CHARACTERS, {expiresIn: '1h'}),
                     username: req.body.username
                 })

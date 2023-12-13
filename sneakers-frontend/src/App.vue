@@ -5,7 +5,8 @@ import router from "./router/index.js";
 export default {
   data() {
     return {
-      user_token: ""
+      user_token: "",
+      user_name: ""
     };
   },
   methods: {
@@ -18,6 +19,7 @@ export default {
   created() {
     router.afterEach(() => {
       this.user_token=sessionStorage.getItem("user_token");
+      this.user_name=sessionStorage.getItem("user_name");
     })
   }
 }
@@ -36,6 +38,7 @@ export default {
       <router-link to="/auth/login">Connexion</router-link>
     </div>
     <div v-if="user_token">
+      <p>Bonjour {{user_name}}</p>
       <button @click="logout">Déconnexion</button>
     </div>
   </header>

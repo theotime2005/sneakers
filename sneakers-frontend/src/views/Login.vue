@@ -25,6 +25,7 @@ export default {
           const response = await request.json();
           if (response.token) {
             sessionStorage.setItem("user_token", response.token)
+            sessionStorage.setItem("user_name", response.userName);
             this.$router.push('/');
           }
           else {
@@ -48,6 +49,9 @@ export default {
     <input type="password" required v-model="password">
     <p class="bg-red-400">{{message}}</p>
     <button type="submit">Se connecter</button>
+    <hr>
+    <p>Pas de compte?</p>
+    <button @click="$router.push('/auth/register')">Créer un compte</button>
   </form>
 </template>
 
