@@ -1,6 +1,7 @@
 const crypt = require("bcrypt");
 const sql = require('../sql');
 const jwt = require('jsonwebtoken');
+const email = require('../mail');
 
 exports.register = async (req, res, send) => {
     try {
@@ -15,6 +16,29 @@ exports.register = async (req, res, send) => {
                 if (err) {
                     return res.status(501).json({message: "Failed to add user", error: {err}});
                 } else {
+                    const mailOption = {
+                        from: "Le site des sneakers",
+                        to: req.body.email,
+                        subject: "Confirmation d'inscription",
+                        html: `
+                        <h1>Confirmation d'inscription</h1>
+                        <p>Bonjour ${req.body.username}. Votre compte a été créé avec succès.</p>
+                        <p>Vous pouvez désormais vous connecter sur <a href="http://localhost:5173">Notre site</a> et commencer votre collection!</p>
+                        <p>A très bientôt</p>
+                        <p>Théotime Berthod</p>
+                        <footer>
+                        <p>Il s'agit d'un email automatique, merci de ne pas y répondre</p>
+                        <p>Copyright © Théotime Berthod</p>
+</footer>
+                        `
+                    }
+                    email.sendMail(mailOption, (mail_error, mail_info) => {
+                        if (mail_error) {
+                            console.error(mail_error);
+                        } else {
+                            console.log("Mail sended", mail_info.response);
+                        }
+                    })
                     res.status(200).json({message: "User added successfull"});
                 }
             });
