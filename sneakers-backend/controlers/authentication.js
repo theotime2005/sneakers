@@ -78,3 +78,49 @@ exports.login = async (req, res, next) => {
         }
     })
 }
+
+exports.resetPassword = async (req, res, next) => {
+    try {
+        const mySqlRequest = `SELECT * FROM Users WHERE email = "${req.body.email}"`;
+        sql.query(mySqlRequest, (err, rows, fields) => {
+            if (err) {
+                return res.status(404).json({message: "Error with the database.", error: err})
+            }
+            if (rows) {
+                const data = rows[0];
+                const token = jwt.sign({user_id: data.id, user_name: data.username}, process.env.TOKEN_CHARACTERS, {expiresIn: '1h'});
+                const mailOption = {
+                    to: req.body.email,
+                    from: process.env.EMAIL_ADRESS,
+                    subject: "Réinitialisation de votre mot de passe",
+                    html: `
+                <h1>Réinitialisation de votre mot de passe</h1>
+                <p>Bonjour ${data.username}. Vous avez demandé la réinitialisation de votre mot de passe. Cliquer sur le lien ci-dessous pour le réinitialiser.</p>
+                <a href="http://localhost:5173/reset?token=${encodeURIComponent(token)}">Réinitialiser mon mot de passe</a>
+                <p>Ce lien sera valable durant 24h.</p>
+                `
+                };
+                email.sendMail(mailOption, (mail_error, mail_info) => {
+                    if (mail_error) {
+                        console.error(mail_error);
+                    }
+                    console.log(mail_info);
+                })
+            }
+            return res.status(200).json({message: "token send"});
+        })
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+exports.check_token = (req, res, next) => {
+    try {
+        const token = req.headers.authorization.split(" ")[1];
+        const decodedToken = jwt.verify(token, process.env.TOKEN_CHARACTERS);
+        return res.status(200).json({isValid: true});
+    } catch (error) {
+        console.error(error)
+        res.status(403).json({isValid: false});
+    }
+}
