@@ -55,6 +55,7 @@ export default {
     }
   },
   mounted() {
+    document.title="Ma collection |  Le site des sneakers";
     this.get_sneakers()
   }
 }

@@ -103,6 +103,7 @@ export default {
     }
   },
   mounted() {
+    document.title="Mon profil | Le site des sneakers";
     this.load_profil();
   }
 }

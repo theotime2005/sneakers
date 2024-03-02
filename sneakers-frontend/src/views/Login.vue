@@ -41,6 +41,9 @@ export default {
         console.error(error);
       }
     }
+  },
+  mounted() {
+    document.title="Connexion | Le site des sneakers";
   }
 }
 </script>
@@ -54,9 +57,10 @@ export default {
     <input type="password" required v-model="password">
     <p class="bg-red-400" v-if="message.length>0">{{message}}</p>
     <button type="submit">Se connecter</button>
+    <button type="button" @click="$router.push('/auth/forget')">Mot de passe oublié!!!</button>
     <hr>
     <p>Pas de compte?</p>
-    <button @click="$router.push('/auth/register')">Créer un compte</button>
+    <button type="button" @click="$router.push('/auth/register')">Créer un compte</button>
   </form>
 </template>
 

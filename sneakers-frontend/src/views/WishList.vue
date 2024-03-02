@@ -84,6 +84,7 @@ export default {
     }
   },
   mounted() {
+    document.title="Ma liste de souhait | Le site des sneakers";
     this.get_sneakers()
     if (this.sneakerWishList.length>0) {
     }

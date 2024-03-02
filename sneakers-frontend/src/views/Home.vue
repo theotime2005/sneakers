@@ -136,6 +136,7 @@ export default {
     }
   },
   mounted() {
+    document.title="Accueil | Le site des sneakers";
     this.load_sneakers();
   }
 };

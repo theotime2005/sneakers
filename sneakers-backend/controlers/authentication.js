@@ -96,7 +96,7 @@ exports.resetPassword = async (req, res, next) => {
                     html: `
                 <h1>Réinitialisation de votre mot de passe</h1>
                 <p>Bonjour ${data.username}. Vous avez demandé la réinitialisation de votre mot de passe. Cliquer sur le lien ci-dessous pour le réinitialiser.</p>
-                <a href="http://localhost:5173/reset?token=${encodeURIComponent(token)}">Réinitialiser mon mot de passe</a>
+                <a href="http://localhost:5173/auth/reset?token=${encodeURIComponent(token)}">Réinitialiser mon mot de passe</a>
                 <p>Ce lien sera valable durant 24h.</p>
                 `
                 };
@@ -122,5 +122,21 @@ exports.check_token = (req, res, next) => {
     } catch (error) {
         console.error(error)
         res.status(403).json({isValid: false});
+    }
+}
+
+exports.changePassword = async (req, res) => {
+    try {
+        const newPassword = await crypt.hash(req.body.password, 10);
+        const mySqlRequest = `UPDATE Users SET password = "${newPassword}" WHERE id = ${req.auth.user_id};`;
+        sql.query(mySqlRequest, (err, rows, fields) => {
+            if (err) {
+                return status(501).json({message: "Internal server error", error: err})
+            }
+            return res.status(200).json({message: "User modified"});
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(501).json({message: "Internal server error", error: error});
     }
 }

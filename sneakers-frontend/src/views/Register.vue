@@ -30,6 +30,9 @@ export default {
         console.error(error);
       }
     }
+  },
+  mounted() {
+    document.title="Créer un compte | Le site des sneakers";
   }
 }
 </script>
