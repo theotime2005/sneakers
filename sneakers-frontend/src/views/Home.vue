@@ -154,7 +154,7 @@ export default {
     </div>
 
     <div class="container" v-if="sneakerList && sneakerList.length > 0">
-      <div class="card" v-for="sneaker in sneakerList" :key="sneaker.id">
+      <div class="flex" v-for="sneaker in sneakerList" :key="sneaker.id">
         <h2>{{ sneaker.attributes.name }}</h2>
         <img :src="sneaker.attributes.image.small" alt="Une image de la paire de sneakers">
         <router-link :to="'/sneaker/'+sneaker.id">Voir plus</router-link>
@@ -188,114 +188,4 @@ export default {
 </template>
 
 <style scoped>
-/* Add your custom styles here */
-
-h1, h2 {
-  color: #333; /* Define styles for headings */
-}
-
-p {
-  color: #555; /* Define styles for paragraphs */
-}
-
-.searchBar {
-  margin: 20px 0; /* Define styles for the search bar */
-  display: flex;
-}
-
-.searchBar input {
-  flex-grow: 1; /* Define styles for the search input */
-  margin-right: 10px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.searchBar button {
-  padding: 5px 10px; /* Define styles for the search button */
-  background-color: #007bff; /* Bootstrap's blue color for primary */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.searchBar button:hover {
-  background-color: #0056b3; /* Darker shade of blue on hover */
-}
-
-.container {
-  margin: 20px; /* Define styles for the container */
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.card {
-  margin-bottom: 20px; /* Define styles for the card */
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-img {
-  max-width: 100%; /* Define styles for images in cards */
-  height: auto;
-  margin-top: 10px;
-}
-
-router-link {
-  color: #007bff; /* Blue color for links */
-  text-decoration: none; /* Define styles for router links in cards */
-  margin-right: 10px;
-}
-
-button {
-  padding: 5px 10px; /* Define styles for buttons in cards */
-  margin-top: 10px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #28a745; /* Bootstrap's green color for success */
-}
-
-.page-navigation {
-  margin-top: 20px; /* Define styles for page navigation */
-  display: flex;
-  justify-content: space-between;
-}
-
-a {
-  padding: 5px 10px; /* Define styles for pagination links */
-  background-color: #007bff; /* Blue color for links */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-a:hover {
-  background-color: #0056b3; /* Darker shade of blue on hover */
-}
-
-input[type="number"] {
-  padding: 5px; /* Define styles for the number input */
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
-}
-
-/* Add any additional styles as needed */
-
-.no-sneakers-message {
-  color: #999;
-  font-style: italic;
-  margin-top: 10px;
-}
-
 </style>
