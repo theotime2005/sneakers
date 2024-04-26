@@ -49,88 +49,20 @@ export default {
 </script>
 
 <template>
-  <h1>Connexion</h1>
-  <form @submit.prevent="test_login">
-    <label for="email">Email*</label>
-    <input type="email" required id="email" v-model="email">
-    <label for="password">Mot de passe*</label>
-    <input type="password" required v-model="password">
-    <p class="bg-red-400" v-if="message.length>0">{{message}}</p>
-    <button type="submit">Se connecter</button>
-    <button type="button" @click="$router.push('/auth/forget')">Mot de passe oublié!!!</button>
-    <hr>
-    <p>Pas de compte?</p>
-    <button type="button" @click="$router.push('/auth/register')">Créer un compte</button>
-  </form>
+  <div>
+    <h1 class="text-3xl font-bold">Connexion</h1>
+    <form @submit.prevent="test_login" class="mt-8">
+      <label for="email" class="block">Email*</label>
+      <input type="email" required id="email" v-model="email" class="mt-2 px-4 py-2 border border-gray-300 rounded-md w-full">
+      <label for="password" class="block mt-4">Mot de passe*</label>
+      <input type="password" required v-model="password" class="mt-2 px-4 py-2 border border-gray-300 rounded-md w-full">
+      <p class="mt-2 bg-red-400 px-4 py-2 rounded" v-if="message.length>0">{{message}}</p>
+      <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">Se connecter</button>
+      <button type="button" @click="$router.push('/auth/forget')" class="mt-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Mot de passe oublié!!!</button>
+      <hr class="my-8">
+      <p>Pas de compte?</p>
+      <button type="button" @click="$router.push('/auth/register')" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Créer un compte</button>
+    </form>
+  </div>
+
 </template>
-
-<style scoped>
-/* Add your custom styles here */
-
-h1 {
-  /* Define styles for heading 1 */
-  color: #333;
-  text-align: center; /* Center align the heading */
-}
-
-form {
-  /* Define styles for the form */
-  margin-top: 20px;
-  max-width: 400px; /* Limit the form width for better readability */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-label {
-  /* Define styles for labels */
-  display: block;
-  margin-top: 10px;
-  color: #555;
-}
-
-input {
-  /* Define styles for text inputs */
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-p {
-  /* Define styles for paragraphs */
-  color: #dc3545; /* Bootstrap's red color for danger */
-  margin-top: 10px;
-}
-
-button {
-  /* Define styles for buttons */
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff; /* Bootstrap's blue color for primary */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s; /* Add a smooth transition effect */
-}
-
-button:hover {
-  /* Define styles for button on hover */
-  background-color: #0056b3; /* Darker shade of blue on hover */
-}
-
-hr {
-  /* Define styles for horizontal rule */
-  margin-top: 20px;
-}
-
-button.create-account-btn {
-  /* Specific styles for the "Create Account" button */
-  background-color: #28a745; /* Bootstrap's green color for success */
-}
-
-/* Add any additional styles as needed */
-</style>

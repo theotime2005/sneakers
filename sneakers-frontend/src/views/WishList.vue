@@ -93,91 +93,22 @@ export default {
 </script>
 
 <template>
-  <h1>Ma liste de souhaits de sneakers</h1>
-  <a :href="'mailto:?subject=Ma liste de souhaits&body='+mailContent" @click="make_email_content">Partager par mail</a>
-  <p>Ici vous pouvez ressenser les sneakers que vous souhaiteriez avoir.</p>
-  <div class="container">
-    <ul v-if="sneakerWishList && sneakerWishList.length>0" v-for="sneaker in sneakerWishList" :key="sneaker.id">
-      <li><router-link :to="'/sneaker/'+sneaker.id">{{sneaker.attributes.name}}</router-link>
-        <img :src="sneaker.attributes.image.small">
-
-        <button @click="delete_sneaker(sneaker.id)">Retirer de ma liste de souhait</button>
-        <button @click="past_to_collection(sneaker.id)">Basculer le sneaker dans ma collection</button>
-      </li>
-    </ul>
-    <p v-else>Aucun sneaker dans la liste de souhait!!!</p>
+  <div>
+    <h1 class="text-3xl font-bold">Ma liste de souhaits de sneakers</h1>
+    <a :href="'mailto:?subject=Ma liste de souhaits&body=' + mailContent" @click="make_email_content" class="mt-4 block text-blue-500">Partager par mail</a>
+    <p class="mt-4">Ici vous pouvez recenser les sneakers que vous souhaiteriez avoir.</p>
+    <div class="container mt-8">
+      <ul v-if="sneakerWishList && sneakerWishList.length > 0">
+        <li v-for="sneaker in sneakerWishList" :key="sneaker.id" class="flex items-center justify-between border-b border-gray-300 py-2">
+          <router-link :to="'/sneaker/'+sneaker.id" class="text-blue-500">{{ sneaker.attributes.name }}</router-link>
+          <img :src="sneaker.attributes.image.small" alt="Image de la sneaker" class="w-24 h-24 object-cover rounded-md">
+          <div>
+            <button @click="delete_sneaker(sneaker.id)" class="px-4 py-2 bg-red-500 text-white rounded-md">Retirer de ma liste de souhaits</button>
+            <button @click="past_to_collection(sneaker.id)" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md">Basculer le sneaker dans ma collection</button>
+          </div>
+        </li>
+      </ul>
+      <p v-else class="mt-4">Aucun sneaker dans la liste de souhaits !!!</p>
+    </div>
   </div>
 </template>
-
-<style scoped>
-/* Styles généraux */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa; /* Couleur de fond par défaut */
-}
-
-/* Styles du lien de messagerie */
-a {
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-a:hover {
-  background-color: #0056b3;
-}
-
-/* Styles de la liste de souhaits */
-h1 {
-  color: #333;
-}
-
-.container {
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 20px;
-}
-
-router-link {
-  color: #007bff;
-  text-decoration: none;
-  margin-right: 10px;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  margin-top: 10px;
-}
-
-/* Styles des boutons */
-button {
-  padding: 8px;
-  margin-top: 10px;
-  margin-right: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  filter: brightness(90%); /* Légère réduction de la luminosité au survol */
-}
-
-/* Ajoutez d'autres styles au besoin */
-</style>

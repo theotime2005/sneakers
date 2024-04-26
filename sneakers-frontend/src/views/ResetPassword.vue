@@ -55,19 +55,17 @@ export default {
 </script>
 
 <template>
-  <h1>Réinitialiser votre mot de passe</h1>
-  <div v-if="isActive && !isClose">
-    <form @submit.prevent="change_password">
-      <label for="password">Nouveau mot de passe</label>
-      <input type="password" id="password" v-model="password" required>
-      <button type="submit">Modifier</button>
-    </form>
+  <div>
+    <h1 class="text-3xl font-bold">Réinitialiser votre mot de passe</h1>
+    <div v-if="isActive && !isClose" class="mt-4">
+      <form @submit.prevent="change_password">
+        <label for="password" class="block">Nouveau mot de passe</label>
+        <input type="password" id="password" v-model="password" required class="mt-2 px-4 py-2 border border-gray-300 rounded-md w-full">
+        <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">Modifier</button>
+      </form>
+    </div>
+    <p v-else-if="!isActive" class="mt-4">Le jeton est expiré, veuillez reformuler votre demande.</p>
+    <p v-else-if="isClose" class="mt-4">Votre mot de passe a été modifié. Vous pouvez vous connecter.</p>
+    <RouterLink to="/auth/login" class="mt-4 block text-blue-500">Accéder à la page de connexion</RouterLink>
   </div>
-  <p v-else-if="!isActive">Le jeton est expiré, veuillez reformuler votre demande.</p>
-  <p v-else-if="isClose">Votre mot de passe a été modifié. Vous pouvez vous connecter.</p>
-  <RouterLink to="/auth/login">Accéder à la page de connexion</RouterLink>
 </template>
-
-<style scoped>
-
-</style>

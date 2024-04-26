@@ -17,7 +17,7 @@ exports.register = async (req, res, send) => {
                     return res.status(501).json({message: "Failed to add user", error: {err}});
                 } else {
                     const mailOption = {
-                        from: "Le site des sneakers",
+                        from: process.env.EMAIL_ADRESS,
                         to: req.body.email,
                         subject: "Confirmation d'inscription",
                         html: `

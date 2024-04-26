@@ -110,115 +110,29 @@ export default {
 </script>
 
 <template>
-  <h1>Mon profile</h1>
-  <router-link to="/">Retour à l'accueil</router-link>
-  <form @submit.prevent="updateProfil">
-    <label for="username">Nom d'utilisateur</label>
-    <input type="text" required id="username" v-model="username">
-    <label for="email">Email</label>
-    <input type="email" required id="email" v-model="email">
-    <button v-if="email!=basic_infos.email || username!=basic_infos.username" type="submit">Enregistrer les modifications</button>
-  </form>
-  <button @click="$refs.myDialog.showModal()">Modifier le mot de passe</button>
-  <button @click="delete_profil">Supprimer mon compte</button>
-  <dialog ref="myDialog">
-    <form @submit.prevent="change_password">
-      <label for="previous">Ancien mot de passe</label>
-      <input type="password" required v-model="previousPassword" id="previous">
-      <label for="new">Nouveau mot de passe</label>
-      <input type="password" required v-model="newPassword" id="new">
-      <button @click="close_dialog">Annuler</button>
-      <button type="submit">Modifier</button>
+  <div>
+    <h1 class="text-3xl font-bold">Mon profil</h1>
+    <router-link to="/" class="text-blue-500 mt-4 block">Retour à l'accueil</router-link>
+    <form @submit.prevent="updateProfil" class="mt-8">
+      <label for="username" class="block">Nom d'utilisateur</label>
+      <input type="text" required id="username" v-model="username" class="mt-2 px-4 py-2 border border-gray-300 rounded-md w-full">
+      <label for="email" class="block mt-4">Email</label>
+      <input type="email" required id="email" v-model="email" class="mt-2 px-4 py-2 border border-gray-300 rounded-md w-full">
+      <button v-if="email!=basic_infos.email || username!=basic_infos.username" type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">Enregistrer les modifications</button>
     </form>
-  </dialog>
+    <button @click="$refs.myDialog.showModal()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">Modifier le mot de passe</button>
+    <button @click="delete_profil" class="mt-4 px-4 py-2 bg-red-500 text-white rounded-md">Supprimer mon compte</button>
+    <dialog ref="myDialog" class="mt-8">
+      <form @submit.prevent="change_password" class="mt-4">
+        <label for="previous" class="block">Ancien mot de passe</label>
+        <input type="password" required v-model="previousPassword" id="previous" class="mt-2 px-4 py-2 border border-gray-300 rounded-md w-full">
+        <label for="new" class="block mt-4">Nouveau mot de passe</label>
+        <input type="password" required v-model="newPassword" id="new" class="mt-2 px-4 py-2 border border-gray-300 rounded-md w-full">
+        <div class="mt-4 flex justify-end">
+          <button @click="close_dialog" class="mr-4 px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Annuler</button>
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Modifier</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
 </template>
-
-<style scoped>
-/* Add your custom styles here */
-
-h1 {
-  /* Define styles for heading 1 */
-  color: #333;
-  text-align: center; /* Center align the heading */
-}
-
-form {
-  /* Define styles for the form */
-  max-width: 400px; /* Limit the form width for better readability */
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-}
-
-label {
-  /* Define styles for labels */
-  display: block;
-  margin-top: 10px;
-  color: #555;
-}
-
-input {
-  /* Define styles for text inputs */
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-button {
-  /* Define styles for buttons */
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  background-color: #007bff; /* Bootstrap's blue color for primary */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s; /* Add a smooth transition effect */
-}
-
-button:hover {
-  /* Define styles for button on hover */
-  background-color: #0056b3; /* Darker shade of blue on hover */
-}
-
-dialog {
-  /* Define styles for the dialog */
-  max-width: 400px; /* Limit the dialog width */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-dialog form {
-  /* Define styles for the form inside the dialog */
-  margin-top: 10px;
-}
-
-dialog label {
-  /* Define styles for labels inside the dialog */
-  margin-top: 10px;
-}
-
-dialog input {
-  /* Define styles for text inputs inside the dialog */
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-dialog button {
-  /* Define styles for buttons inside the dialog */
-  width: 48%; /* Adjust the width as needed */
-  margin-top: 10px;
-}
-
-/* Add any additional styles as needed */
-</style>

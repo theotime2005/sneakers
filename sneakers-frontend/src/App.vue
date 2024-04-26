@@ -31,29 +31,28 @@ export default {
 </script>
 
 <template>
-  <header>
-    <nav class="flex items-start justify-items-start">
-      <router-link to="/">Accueil</router-link>
-      <menu v-if="user_token">
-        <router-link to="/wishlist">Ma liste de souhaits</router-link>
-        <router-link to="/collection">Ma collection</router-link>
+  <header class="bg-gray-200 py-4">
+    <nav class="container mx-auto flex items-center justify-between">
+      <router-link to="/" class="text-blue-500 hover:underline">Accueil</router-link>
+      <menu v-if="user_token" class="ml-4">
+        <router-link to="/wishlist" class="text-blue-500 hover:underline">Ma liste de souhaits</router-link>
+        <router-link to="/collection" class="ml-4 text-blue-500 hover:underline">Ma collection</router-link>
       </menu>
+      <div v-if="user_token === null">
+        <router-link to="/auth/login" class="text-blue-500 hover:underline">Connexion</router-link>
+      </div>
+      <div v-if="user_token" class="ml-auto flex items-center">
+        <p class="mr-4">Bonjour {{ user_name }}</p>
+        <button v-if="path !== '/profil'" @click="$router.push('/profil')" class="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Modifier mon profil</button>
+        <button @click="logout" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Déconnexion</button>
+      </div>
     </nav>
-    <div v-if="user_token===null">
-      <router-link to="/auth/login">Connexion</router-link>
-    </div>
-    <div v-if="user_token">
-      <p>Bonjour {{user_name}}</p>
-      <button v-if="path!='/profil'" @click="$router.push('/profil')">Modifier mon profil</button>
-      <button @click="logout">Déconnexion</button>
-    </div>
   </header>
-  <router-view/>
-  <hr>
-  <footer>
-    <p>Conçu par Théotime Berthod</p>
+  <RouterView/>
+  <hr class="my-4">
+  <footer class="bg-gray-200 py-4">
+    <div class="container mx-auto text-center">
+      <p>Conçu par Théotime Berthod</p>
+    </div>
   </footer>
 </template>
-
-<style scoped>
-</style>

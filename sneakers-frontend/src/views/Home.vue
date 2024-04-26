@@ -186,6 +186,3 @@ export default {
     <button @click="load_sneakers(page_size)">Raffaîchir</button>
   </div>
 </template>
-
-<style scoped>
-</style>

@@ -35,18 +35,16 @@ export default {
 </script>
 
 <template>
-  <h1>Vous avez oubliez votre mot de passe?</h1>
-  <div v-if="!isClose">
-    <p>Entrez votre email pour réinitialiser votre mot de passe</p>
-    <form @submit.prevent="ask_reset">
-      <label for="email">Votre email</label>
-      <input type="email" id="email" v-model="email" required>
-      <button type="submit">Envoyer</button>
-    </form>
+  <div>
+    <h1 class="text-3xl font-bold">Vous avez oublié votre mot de passe?</h1>
+    <div v-if="!isClose" class="mt-4">
+      <p>Entrez votre email pour réinitialiser votre mot de passe</p>
+      <form @submit.prevent="ask_reset" class="mt-4">
+        <label for="email" class="block">Votre email</label>
+        <input type="email" id="email" v-model="email" required class="mt-2 px-4 py-2 border border-gray-300 rounded-md w-full">
+        <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">Envoyer</button>
+      </form>
+    </div>
+    <p v-else class="mt-4">Un email de confirmation vous a été envoyé.</p>
   </div>
-  <p v-else>Un email de confirmation vous a été envoyé.</p>
 </template>
-
-<style scoped>
-
-</style>
