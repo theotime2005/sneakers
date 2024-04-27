@@ -143,46 +143,52 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h1 class="">Le site des sneakers</h1>
-    <p>Imaginez-vous un endroit où sont recensées toutes (ou presque) les chaussures de type Sneakers.</p>
-    <p>Vous devriez trouver votre bonheur ici!</p>
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Le site des sneakers</h1>
+    <p class="mb-2">Imaginez-vous un endroit où sont recensées toutes (ou presque) les chaussures de type Sneakers.</p>
+    <p class="mb-4">Vous devriez trouver votre bonheur ici!</p>
 
-    <div class="searchBar">
-      <input type="search" v-model="searchBar" aria-label="Rechercher des sneaker">
-      <button @click="load_sneakers(page)">Rechercher</button>
+    <div class="searchBar mb-4">
+      <input type="search" v-model="searchBar" aria-label="Rechercher des sneakers" class="border border-gray-300 px-4 py-2 rounded-md mr-2">
+      <button @click="load_sneakers(page)" class="bg-blue-500 text-white px-4 py-2 rounded-md">Rechercher</button>
     </div>
 
-    <div class="container" v-if="sneakerList && sneakerList.length > 0">
-      <div class="flex" v-for="sneaker in sneakerList" :key="sneaker.id">
-        <h2>{{ sneaker.attributes.name }}</h2>
-        <img :src="sneaker.attributes.image.small" alt="Une image de la paire de sneakers">
-        <router-link :to="'/sneaker/'+sneaker.id">Voir plus</router-link>
-        <div v-if="user_token">
-          <div v-if="!check_is(sneaker.id)">
-            <button @click="add_to(sneaker.id, 'wishlist')">Ajouter à ma liste de souhaits</button>
-            <button @click="add_to(sneaker.id, 'collection')">Ajouter à ma collection</button>
-          </div>
-          <div v-else-if="check_is(sneaker.id)==='wishlist'">
-            <button @click="delete_to(sneaker.id, 'wishlist')">Supprimer de ma liste de souhaits</button>
-            <button @click="add_to(sneaker.id, 'collection')">Ajouter à ma collection</button>
-          </div>
-          <div v-else-if="check_is(sneaker.id)==='collection'">
-            <button @click="delete_to(sneaker.id, 'collection')">Supprimer de ma collection</button>
+    <div v-if="sneakerList && sneakerList.length > 0">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div v-for="sneaker in sneakerList" :key="sneaker.id" class="bg-white p-4 shadow-md rounded-md">
+          <h2 class="text-xl font-semibold mb-2">{{ sneaker.attributes.name }}</h2>
+          <img :src="sneaker.attributes.image.small" alt="Une image de la paire de sneakers" class="w-full h-auto mb-2">
+          <router-link :to="'/sneaker/'+sneaker.id" class="text-blue-500">Voir plus</router-link>
+          <div v-if="user_token" class="mt-2">
+            <div v-if="!check_is(sneaker.id)">
+              <button @click="add_to(sneaker.id, 'wishlist')" class="bg-green-500 text-white px-4 py-2 rounded-md mr-2">Ajouter à ma liste de souhaits</button>
+              <button @click="add_to(sneaker.id, 'collection')" class="bg-blue-500 text-white px-4 py-2 rounded-md">Ajouter à ma collection</button>
+            </div>
+            <div v-else-if="check_is(sneaker.id)==='wishlist'" class="mt-2">
+              <button @click="delete_to(sneaker.id, 'wishlist')" class="bg-red-500 text-white px-4 py-2 rounded-md mr-2">Supprimer de ma liste de souhaits</button>
+              <button @click="add_to(sneaker.id, 'collection')" class="bg-blue-500 text-white px-4 py-2 rounded-md">Ajouter à ma collection</button>
+            </div>
+            <div v-else-if="check_is(sneaker.id)==='collection'" class="mt-2">
+              <button @click="delete_to(sneaker.id, 'collection')" class="bg-red-500 text-white px-4 py-2 rounded-md">Supprimer de ma collection</button>
+            </div>
           </div>
         </div>
       </div>
-      <p v-if="sneakerList && sneakerList.length === 0">Aucun résultat</p>
-      <hr>
-      <h1>Pagination actuellement sur la page {{page}}</h1>
-      <div class="page-navigation">
-        <a v-if="page > 1" href="#" @click="load_sneakers(page - 1)">Précédent ←</a>
-        <a v-for="pageNumber in Math.min(page_number, page + 3)" :key="pageNumber" href="#" @click="load_sneakers(pageNumber)">{{ pageNumber }}</a>
-        <a v-if="page < page_number" href="#" @click="load_sneakers(page + 1)">Suivant →</a>
+      <p class="mt-4">Pagination actuellement sur la page {{page}}</p>
+      <div class="flex justify-between mt-4">
+        <a v-if="page > 1" href="#" @click="load_sneakers(page - 1)" class="text-blue-500">&larr; Précédent</a>
+        <div>
+          <div v-for="pageNumber in Math.min(page_number, page + 3)">
+            <a :key="pageNumber" href="#" @click="load_sneakers(pageNumber)" class="text-blue-500 mx-1">{{ pageNumber }}</a>
+          </div>
+        </div>
+        <a v-if="page < page_number" href="#" @click="load_sneakers(page + 1)" class="text-blue-500">Suivant &rarr;</a>
       </div>
     </div>
 
-    <input type="number" v-model="page_size" aria-label="Sneakers par pages">
-    <button @click="load_sneakers(page_size)">Raffaîchir</button>
+    <div class="mt-4">
+      <input type="number" v-model="page_size" aria-label="Sneakers par page" class="border border-gray-300 px-4 py-2 rounded-md mr-2">
+      <button @click="load_sneakers(page_size)" class="bg-blue-500 text-white px-4 py-2 rounded-md">Rafraîchir</button>
+    </div>
   </div>
 </template>

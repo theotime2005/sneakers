@@ -41,7 +41,7 @@ export default {
       <ul class="list-disc pl-4 mt-2">
         <li>Fabricant: {{ informations.attributes.brand }}</li>
         <li>Genre: {{ informations.attributes.gender }}</li>
-        <li>Prix estimé: {{ informations.attributes.estimatedMarketValue }}</li>
+        <li>Prix estimé: {{ informations.attributes.estimatedMarketValue }}€</li>
       </ul>
       <h2 class="text-lg font-bold mt-4">Liens</h2>
       <ul class="list-disc pl-4 mt-2">
